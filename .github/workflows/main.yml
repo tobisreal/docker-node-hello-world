@@ -27,7 +27,8 @@ jobs:
     - name: Build and push docker image
       uses: mr-smithers-excellent/docker-build-push@v5
       with: 
-        image: tobiisreal/myimage:nodeimage
+        image: tobiisreal/myimage
+        tags: img
         registry: docker.io
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
