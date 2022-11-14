@@ -1,0 +1,47 @@
+# This workflow will build a docker image, push the image to aws ecr, dockerhub and github container registry.
+# This workflow is only to be triggered when a merge is created.
+
+name: Github actions CI 
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [tobi-main] 
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+   # - checkout
+    - uses: actions/checkout@v3
+
+    - name: Build and push docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with: 
+        image: tobiisreal/myimage
+        registry: docker.io
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+     
+    - name: Push to AWS Elastic Container Registry (ECR)
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with:
+        image: myimage
+        registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Push to Github Container Registry 
+      uses: mr-smithers-excellent/docker-build-push@v5
+      with: 
+        image: myimage
+        registry: ghcr.io
+        username: ${{ secrets.GHCR_USERNAME }}
+        password: ${{ secrets.GHCR_TOKEN }}
+
+
