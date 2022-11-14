@@ -36,9 +36,9 @@ jobs:
     - name: Push to AWS Elastic Container Registry (ECR)
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: myimage
-         #registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com
-        registry: public.ecr.aws/b0v5h7l1/github:latest
+        image: github
+        registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com
+        #registry: public.ecr.aws/b0v5h7l1/github:latest
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
