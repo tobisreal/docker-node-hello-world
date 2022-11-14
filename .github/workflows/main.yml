@@ -36,7 +36,7 @@ jobs:
     - name: Push to AWS Elastic Container Registry (ECR)
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
-        image: github
+        image: fish
         tags: img2
        #registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com
         registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com/fish
