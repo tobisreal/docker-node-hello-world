@@ -46,7 +46,7 @@ jobs:
         image: fish
         tags: img2
         #registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com
-        registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com/fish:V1
+        registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com/fish
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
