@@ -63,7 +63,7 @@ jobs:
     - name: Push to Github Container Registry 
       uses: mr-smithers-excellent/docker-build-push@v5
       with: 
-        image: myimage
+        image: tobisreal/myimage
         registry: ghcr.io
         username: ${{ secrets.GHCR_USERNAME }}
         password: ${{ secrets.GHCR_TOKEN }}
