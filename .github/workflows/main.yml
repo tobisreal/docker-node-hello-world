@@ -24,7 +24,7 @@ jobs:
    
 
     - name: Build and push docker image
-      uses: mr-smithers-excellent/docker-build-push@v5
+      uses: mr-smithers-excellent/docker-build-push@v5 
       with: 
         image: tobiisreal/myimage
         tags: img
@@ -32,24 +32,33 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
      
-    - name: Login to ECR
+    - run: docker build --tag my-image:v1 .
+    - name: Push to ECR
       id: ecr
-      uses: elgohr/ecr-login-action@v2
+      uses: jwalton/gh-ecr-push@v1
       with:
-        access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        region: ${{ secrets.AWS_REGION }}
+        access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: us-east-1
+        image: my-image:v1
+   # - name: Login to ECR
+    #  id: ecr
+     # uses: elgohr/ecr-login-action@v2
+      #with:
+       # access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #region: ${{ secrets.AWS_REGION }}
 
-    - name: Push to AWS Elastic Container Registry (ECR)
-      uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: fish
-        tags: img2
+    #- name: Push to AWS Elastic Container Registry (ECR)
+     # uses: mr-smithers-excellent/docker-build-push@v5
+      #with:
+       # image: fish
+        #tags: img2
         #registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com
-        registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com/fish
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #registry: 376756942472.dkr.ecr.us-east-1.amazonaws.com/fish
+      #env:
+       # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }} */
 
     - name: Push to Github Container Registry 
       uses: mr-smithers-excellent/docker-build-push@v5
